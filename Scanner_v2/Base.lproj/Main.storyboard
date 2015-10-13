@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Scanner_v2" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="BFE Barcode Scanner" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ypc-SZ-eJn">
+                                <rect key="frame" x="196" y="36" width="208" height="32"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="juu-5h-gsQ">
+                                <rect key="frame" x="218" y="361" width="164" height="55"/>
+                                <color key="backgroundColor" white="0.94400185032894723" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Sign Out Books"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IEt-pz-eE2">
+                                <rect key="frame" x="214" y="462" width="172" height="59"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="0.77000000000000002" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Sign In Books"/>
+                                <connections>
+                                    <segue destination="YGf-HP-09d" kind="show" id="1WE-0R-NOA"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="juu-5h-gsQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SRE-bn-Gsj"/>
+                            <constraint firstItem="ypc-SZ-eJn" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="TSa-wf-Hqk"/>
+                            <constraint firstItem="IEt-pz-eE2" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="wSV-lW-QPK"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="305" y="387"/>
+        </scene>
+        <!--Code39ISBN View Controller-->
+        <scene sceneID="tJL-UM-b4Z">
+            <objects>
+                <viewController id="YGf-HP-09d" customClass="Code39ISBNViewController" customModule="Scanner_v2" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lT2-ic-vLM"/>
+                        <viewControllerLayoutGuide type="bottom" id="YZb-W9-Dsm"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="vOC-Bu-V2O">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iuR-aT-rw3">
+                                <rect key="frame" x="222" y="448" width="156" height="59"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Scan ISBN"/>
+                                <connections>
+                                    <action selector="ISBN_Button_Press:" destination="YGf-HP-09d" eventType="touchUpInside" id="F26-u3-jW0"/>
+                                    <segue destination="LgD-PH-Ucq" kind="show" id="Ps8-Q9-jKI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5R4-s1-fsy">
+                                <rect key="frame" x="222" y="227" width="156" height="65"/>
+                                <color key="backgroundColor" white="0.94371916119999999" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="Scan Code-39"/>
+                                <connections>
+                                    <action selector="Code39_Button_Press:" destination="YGf-HP-09d" eventType="touchUpInside" id="i4E-1e-NPg"/>
+                                    <segue destination="LgD-PH-Ucq" kind="show" id="2BP-Xr-7Hr"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QiB-V0-vim">
+                                <rect key="frame" x="246" y="300" width="109" height="37"/>
+                                <state key="normal" title="Manual Entry"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C8W-ZS-5s0">
+                                <rect key="frame" x="246" y="521" width="109" height="30"/>
+                                <state key="normal" title="Manual Entry"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URE-eD-IWw">
+                                <rect key="frame" x="196" y="403" width="208" height="23"/>
+                                <color key="backgroundColor" white="0.93431332239999998" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tpz-Pm-D7O">
+                                <rect key="frame" x="196" y="187" width="208" height="23"/>
+                                <color key="backgroundColor" white="0.94400185029999995" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="B4E Barcode Scanner" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WYD-6n-KbM">
+                                <rect key="frame" x="196" y="54" width="208" height="32"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5R4-s1-fsy" firstAttribute="centerX" secondItem="vOC-Bu-V2O" secondAttribute="centerX" id="Fwd-96-3g2"/>
+                            <constraint firstItem="WYD-6n-KbM" firstAttribute="centerX" secondItem="vOC-Bu-V2O" secondAttribute="centerX" id="LcQ-h2-16d"/>
+                            <constraint firstItem="C8W-ZS-5s0" firstAttribute="centerX" secondItem="vOC-Bu-V2O" secondAttribute="centerX" id="Mmx-gb-gL0"/>
+                            <constraint firstItem="QiB-V0-vim" firstAttribute="centerX" secondItem="vOC-Bu-V2O" secondAttribute="centerX" id="sSR-hh-MO9"/>
+                            <constraint firstItem="iuR-aT-rw3" firstAttribute="centerX" secondItem="vOC-Bu-V2O" secondAttribute="centerX" id="vMm-hH-fpM"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="Code39Button" destination="5R4-s1-fsy" id="nBN-P3-RyI"/>
+                        <outlet property="ISBN_Button" destination="iuR-aT-rw3" id="fv2-ce-Hjb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hh8-7r-RWY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="305" y="1246"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="acz-UI-BY3">
+            <objects>
+                <viewController id="J7G-j9-jFt" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Zvn-wv-HXp"/>
+                        <viewControllerLayoutGuide type="bottom" id="Asr-J0-sLW"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IjF-NU-Szd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Obt-1g-WDq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-497" y="1246"/>
+        </scene>
+        <!--Scanner View Controller-->
+        <scene sceneID="ytR-1L-Ocy">
+            <objects>
+                <viewController id="LgD-PH-Ucq" customClass="ScannerViewController" customModule="Scanner_v2" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FlT-R9-tQR"/>
+                        <viewControllerLayoutGuide type="bottom" id="zzB-eN-smP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RyG-Bl-8XI">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <segue destination="CWC-nR-emO" kind="show" id="1Z6-e9-bc8"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="R29-pf-Q1w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1139" y="1246"/>
+        </scene>
+        <!--Confirm View Controller-->
+        <scene sceneID="3ua-eJ-mpw">
+            <objects>
+                <viewController id="CWC-nR-emO" customClass="ConfirmViewController" customModule="Scanner_v2" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="NWQ-vl-ZI8"/>
+                        <viewControllerLayoutGuide type="bottom" id="0r4-1g-3xp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Xgs-Vo-r81">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eyy-Ht-EIf">
+                                <rect key="frame" x="195" y="199" width="211" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Confirm ISBN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZSn-L8-6z3">
+                                <rect key="frame" x="247" y="123" width="106" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tPx-Jv-OPZ">
+                                <rect key="frame" x="221" y="417" width="159" height="41"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Confirm"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="eyy-Ht-EIf" firstAttribute="centerX" secondItem="Xgs-Vo-r81" secondAttribute="centerX" id="6Lg-Aq-0jL"/>
+                            <constraint firstItem="ZSn-L8-6z3" firstAttribute="centerX" secondItem="Xgs-Vo-r81" secondAttribute="centerX" id="iIw-uM-b8q"/>
+                            <constraint firstItem="tPx-Jv-OPZ" firstAttribute="centerX" secondItem="Xgs-Vo-r81" secondAttribute="centerX" id="jba-Td-4xc"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vxx-Za-FYZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1139" y="2224"/>
+        </scene>
+    </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Ps8-Q9-jKI"/>
+    </inferredMetricsTieBreakers>
+</document>
