@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VuM-P7-etE">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F1021" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="VuM-P7-etE">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -9,6 +9,7 @@
         <!--Sign In-->
         <scene sceneID="AID-Ij-ZNL">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qaF-b1-wzG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="cLZ-3N-7ML" customClass="Code39ISBNViewController" customModule="Scanner_v2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kld-WO-ADs"/>
@@ -70,6 +71,12 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rP-ZM-bVc">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="7Z5-pY-FQf">
                                 <rect key="frame" x="0.0" y="49" width="745" height="180"/>
                                 <subviews>
@@ -83,18 +90,26 @@
                                                         <rect key="frame" x="20" y="20" width="310" height="30"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <variation key="widthClass=compact" misplaced="YES">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
+                                                        </variation>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BQQ-rk-NpZ">
                                                         <rect key="frame" x="20" y="58" width="310" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" title="Scan Code39"/>
+                                                        <variation key="widthClass=compact" misplaced="YES">
+                                                            <rect key="frame" x="0.0" y="47" width="320" height="31"/>
+                                                        </variation>
                                                         <connections>
                                                             <action selector="btnCode39:" destination="cLZ-3N-7ML" eventType="touchUpInside" id="ifg-Im-0rW"/>
                                                             <segue destination="lV3-lo-oxd" kind="show" id="c8i-3J-alL"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <variation key="widthClass=compact" axis="vertical"/>
+                                                <variation key="widthClass=compact" axis="vertical" misplaced="YES">
+                                                    <rect key="frame" x="20" y="10" width="320" height="78"/>
+                                                </variation>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -115,7 +130,8 @@
                                                 <exclude reference="zJq-W6-abi"/>
                                             </mask>
                                         </variation>
-                                        <variation key="widthClass=compact">
+                                        <variation key="widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="0.0" width="360" height="98"/>
                                             <mask key="subviews">
                                                 <include reference="JK9-8H-1KL"/>
                                             </mask>
@@ -137,18 +153,26 @@
                                                         <rect key="frame" x="20" y="20" width="315" height="30"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
+                                                        <variation key="widthClass=compact" misplaced="YES">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
+                                                        </variation>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w8J-bI-InL">
                                                         <rect key="frame" x="20" y="58" width="315" height="45"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" title="Scan ISBN"/>
+                                                        <variation key="widthClass=compact" misplaced="YES">
+                                                            <rect key="frame" x="0.0" y="47" width="320" height="31"/>
+                                                        </variation>
                                                         <connections>
                                                             <action selector="btnISBN:" destination="cLZ-3N-7ML" eventType="touchUpInside" id="3i8-Fa-wxK"/>
                                                             <segue destination="lV3-lo-oxd" kind="show" id="Jgi-4z-EcT"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <variation key="widthClass=compact" axis="vertical"/>
+                                                <variation key="widthClass=compact" axis="vertical" misplaced="YES">
+                                                    <rect key="frame" x="20" y="10" width="320" height="78"/>
+                                                </variation>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -169,7 +193,8 @@
                                                 <exclude reference="zht-xr-tNI"/>
                                             </mask>
                                         </variation>
-                                        <variation key="widthClass=compact">
+                                        <variation key="widthClass=compact" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="113" width="360" height="98"/>
                                             <mask key="subviews">
                                                 <include reference="jgj-CA-EL3"/>
                                             </mask>
@@ -200,7 +225,8 @@
                                         <exclude reference="tUu-HI-Dpv"/>
                                     </mask>
                                 </variation>
-                                <variation key="widthClass=compact" axis="vertical">
+                                <variation key="widthClass=compact" axis="vertical" misplaced="YES">
+                                    <rect key="frame" x="20" y="65" width="360" height="211"/>
                                     <mask key="constraints">
                                         <include reference="MaR-Se-Ge6"/>
                                         <include reference="XdD-SM-GDu"/>
@@ -211,18 +237,11 @@
                                     </mask>
                                 </variation>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3rP-ZM-bVc">
-                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="3rP-ZM-bVc" secondAttribute="trailing" constant="65" id="0qv-Ea-yY5"/>
                             <constraint firstItem="3rP-ZM-bVc" firstAttribute="leading" secondItem="LUR-IE-GDD" secondAttribute="leadingMargin" constant="66" id="BAI-uc-fCT"/>
-                            <constraint firstItem="7Z5-pY-FQf" firstAttribute="top" secondItem="kld-WO-ADs" secondAttribute="bottom" constant="49" id="ClK-h1-O5d"/>
                             <constraint firstItem="qGJ-wx-aQS" firstAttribute="top" secondItem="knm-IC-Ayt" secondAttribute="bottom" id="EsK-3V-RrS"/>
                             <constraint firstItem="knm-IC-Ayt" firstAttribute="leading" secondItem="LUR-IE-GDD" secondAttribute="leadingMargin" constant="-20" id="Pzs-Ql-MLW"/>
                             <constraint firstAttribute="trailingMargin" secondItem="knm-IC-Ayt" secondAttribute="trailing" constant="-20" id="a7z-1I-PRZ"/>
@@ -245,7 +264,6 @@
                                 <exclude reference="a7z-1I-PRZ"/>
                                 <exclude reference="jSn-q4-t3L"/>
                                 <exclude reference="vkf-uv-kxH"/>
-                                <exclude reference="ClK-h1-O5d"/>
                                 <exclude reference="o1j-rD-zl1"/>
                                 <exclude reference="rFH-Q5-q6z"/>
                                 <exclude reference="EsK-3V-RrS"/>
@@ -264,7 +282,6 @@
                                 <include reference="a7z-1I-PRZ"/>
                                 <include reference="jSn-q4-t3L"/>
                                 <include reference="vkf-uv-kxH"/>
-                                <include reference="ClK-h1-O5d"/>
                                 <include reference="o1j-rD-zl1"/>
                                 <include reference="rFH-Q5-q6z"/>
                                 <include reference="EsK-3V-RrS"/>
@@ -287,7 +304,6 @@
                         <outlet property="txtISBN" destination="3iT-rx-we8" id="yQi-LU-hS7"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qaF-b1-wzG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="220.5" y="1202"/>
         </scene>
@@ -517,7 +533,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="c8i-3J-alL"/>
-        <segue reference="vQR-oo-a5s"/>
+        <segue reference="zfV-VU-xgo"/>
         <segue reference="iRY-dD-auj"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -117,11 +117,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Scanner_v2/Code39ISBNViewController.swift"
-            timestampString = "466131248.792763"
+            timestampString = "467580196.448414"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "205"
-            endingLineNumber = "205"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
             landmarkName = "btnConfirm(_:)"
             landmarkType = "5">
          </BreakpointContent>

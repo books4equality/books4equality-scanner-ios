@@ -12,12 +12,23 @@ import Alamofire
 
 class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
     
+   // @IBOutlet weak var imgInOut: UIImageView!
+    
+   
+    
+    //let parameters = ["isbn":"9780395357149"]
+    var parameter_isbn:String!
+    var parameter_code39:String!
+    
+    //Auth struct contained in pass.swift
+    let user = Auth.user
+    let password = Auth.pass
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        //imgInOut.image = UIImage(named: "in_symbol.png")
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,6 +47,9 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
             dispatch_get_main_queue(), closure)
     }
     
+    
+
+
     
     @IBOutlet weak var txtISBN: UITextField!
     
@@ -165,25 +179,29 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
                 
                 
                 
-                let manager = Alamofire.Manager.sharedInstance
+               let manager = Alamofire.Manager.sharedInstance
                 // Add API key header to all requests make with this manager (i.e., the whole session)
-                manager.session.configuration.HTTPAdditionalHeaders = ["X-Requested-With" : "XMLHttpRequest", "Content-Type" : "application/json", "Accept" : "application/json"]
+               manager.session.configuration.HTTPAdditionalHeaders = ["X-Requested-With" : "XMLHttpRequest", "Content-Type" : "application/json", "Accept" : "application/json"]
                 
                 //let parameters = ["isbn":"9780395357149"]
-                var parameters:String!
+               // var parameters:String!
                 
                 //Auth struct contained in pass.swift
-                let user = Auth.user
-                let password = Auth.pass
+                //let user = Auth.user
+                //let password = Auth.pass
                 
                 //Grab isbn from text box
-                parameters = self.txtISBN.text
+                self.parameter_isbn = self.txtISBN.text
                 
         
-                manager.request(.GET, "http://www.books4equality.com/search/\(parameters)").authenticate(user: user, password: password).responseJSON
+                manager.request(.GET, "http://www.books4equality.com/search/\(self.parameter_isbn)").authenticate(user: user, password: password).responseJSON
                     { response in switch response.result {
                     case .Success(let JSON):
                         print("Success with JSON: \(JSON)")
+                        
+                        //end activity indicator
+                        self.myActivityIndicatorBookSearch.stopAnimating()
+                        self.myActivityIndicatorBackgroundBookSearch.removeFromSuperview()
                         
                         let title = JSON["title"]
                         print(title)
@@ -206,16 +224,20 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
                         
                                            case .Failure(let error):
                         print("Request failed with error: \(error)")
-                              self.lblBookTitle.text = "Error: Didn't find book for given ISBN"
+                            self.lblBookTitle.text = "Error: Didn't find book for given ISBN"
+                        
+                            //end activity indicator
+                            self.myActivityIndicatorBookSearch.stopAnimating()
+                            self.myActivityIndicatorBackgroundBookSearch.removeFromSuperview()
                         }
                 }
                 
                         //Get rid of activity spinner
                 
-                delay(0.25){
+              /*  delay(0.25){
                         self.myActivityIndicatorBookSearch.stopAnimating()
                         self.myActivityIndicatorBackgroundBookSearch.removeFromSuperview()
-                }
+                } */
                 
                 
             }else if(Barcode.CODE39 != "" && Barcode.ISBN == ""){
@@ -242,9 +264,7 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
 
             
             
-        }else{//if hasbeenchecked else
-            
-        
+        }else{//if hasbeenchecked == true
         
         //initialize activity indicator View
         self.myActivityIndicator = UIActivityIndicatorView(frame: CGRectMake(0,0,screenWidth,screenHeight)) as UIActivityIndicatorView;
@@ -262,34 +282,61 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
             /***************************************/
         
         
-        
-        
             /******************** CREATE ACTIVITY INDICATOR AND SHOW IN MIDDLE OF SCREEN **********/
             self.view.addSubview(myActivityIndicator)
 
             self.myActivityIndicator.startAnimating()
-           // actIndPressed = true
-        
-            //Just for activity indicator proof of concept
-            //delay is a double in seconds
-            delay(1.0){
+            
+            
+            
+            //Grab isbn and code39 from text box
+            parameter_isbn = self.txtISBN.text
+            parameter_code39 = self.txtCode39.text
+            
+            let parameters = ["isbn": parameter_isbn ,"barcode": parameter_code39]
+            
+            //start alamofire instance
+            let manager_post = Alamofire.Manager.sharedInstance
+            manager_post.session.configuration.HTTPAdditionalHeaders = ["X-Requested-With" : "XMLHttpRequest", "Content-Type" : "application/json", "Accept" : "application/json"]
+            
+            manager_post.request(.POST, "http://www.books4equality.com/api/books", parameters: parameters, encoding: .JSON).authenticate(user: user, password: password).responseJSON
+                { response in switch response.result {
+                case .Success(let JSON):
+                    print("Success with JSON: \(JSON)")
+                    
+                    //end activity indicator
+                    self.myActivityIndicatorBookSearch.stopAnimating()
+                    self.myActivityIndicatorBackgroundBookSearch.removeFromSuperview()
+                    
+                    /*******CREATE UPLOAD ALERT   **********/
                 
-                //Get rid of background and indicator after 1 second
-                self.myActivityIndicatorBackground.removeFromSuperview()
-                self.myActivityIndicator.stopAnimating()
                 
                 
+                    let alertController = UIAlertController(title: "Nice.", message:
+                        "The Book was Successfully Uploaded.", preferredStyle: UIAlertControllerStyle.Alert)
+                    alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                    
+                    self.presentViewController(alertController, animated: true, completion: nil)
+                    
+                    /******* END OF ALERT ************/
+                    
+                  
+                    
+                    
+                case .Failure(let error):
+                    print("Request failed with error: \(error)")
+                    self.lblBookTitle.text = "Error: Upload Failure!"
+                    
+                    //Get rid of background and indicator after upload
+                    self.myActivityIndicatorBackground.removeFromSuperview()
+                    self.myActivityIndicator.stopAnimating()
+                    
                 
-                /*******CREATE UPLOAD ALERT   **********/
-                
-                let alertController = UIAlertController(title: "Nice.", message:
-                    "The Book was Successfully Uploaded.", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-                
-                self.presentViewController(alertController, animated: true, completion: nil)
-                
-                /******* END OF ALERT ************/
-                
+              
+                    
+                    }
+                    
+            }
                 
                 
                 
@@ -314,7 +361,7 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
                 
                 /********   END CLEAR    ***************/
                 
-            }//End Delay
+          
             
             hasBeenChecked = false
             
@@ -335,6 +382,9 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+    
+    //MARK: Alamofire http requests
+    
 
 
 }//End View Controller

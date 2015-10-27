@@ -13,6 +13,7 @@
 		EB441C9A1BB3608E00549834 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB441C981BB3608E00549834 /* LaunchScreen.storyboard */; };
 		EB441CA51BB3608E00549834 /* Scanner_v2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB441CA41BB3608E00549834 /* Scanner_v2Tests.swift */; };
 		EB441CB01BB3608E00549834 /* Scanner_v2UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB441CAF1BB3608E00549834 /* Scanner_v2UITests.swift */; };
+		EB5794A51BCEA7CA00E73859 /* files in Resources */ = {isa = PBXBuildFile; fileRef = EB5794A41BCEA7CA00E73859 /* files */; settings = {ASSET_TAGS = (); }; };
 		EBAC60031BC48B7300C1EE8C /* Code39ISBNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAC60021BC48B7300C1EE8C /* Code39ISBNViewController.swift */; settings = {ASSET_TAGS = (); }; };
 		EBAC60051BC4905500C1EE8C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBAC60041BC4905500C1EE8C /* Main.storyboard */; settings = {ASSET_TAGS = (); }; };
 		EBAC66F71BBB075500149AF9 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAC66F61BBB075500149AF9 /* ConfirmViewController.swift */; settings = {ASSET_TAGS = (); }; };
@@ -108,6 +109,7 @@
 		EB441CAB1BB3608E00549834 /* Scanner_v2UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Scanner_v2UITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB441CAF1BB3608E00549834 /* Scanner_v2UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scanner_v2UITests.swift; sourceTree = "<group>"; };
 		EB441CB11BB3608E00549834 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EB5794A41BCEA7CA00E73859 /* files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = files; sourceTree = SOURCE_ROOT; };
 		EBAC60021BC48B7300C1EE8C /* Code39ISBNViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Code39ISBNViewController.swift; sourceTree = "<group>"; };
 		EBAC60041BC4905500C1EE8C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		EBAC66F61BBB075500149AF9 /* ConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				EB441CA31BB3608E00549834 /* Scanner_v2Tests */,
 				EB441CAE1BB3608E00549834 /* Scanner_v2UITests */,
 				EB441C8D1BB3608E00549834 /* Products */,
+				EB5794A41BCEA7CA00E73859 /* files */,
 			);
 			sourceTree = "<group>";
 		};
@@ -362,6 +365,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB5794A51BCEA7CA00E73859 /* files in Resources */,
 				EBAC60051BC4905500C1EE8C /* Main.storyboard in Resources */,
 				EB441C9A1BB3608E00549834 /* LaunchScreen.storyboard in Resources */,
 				EB441C971BB3608E00549834 /* Assets.xcassets in Resources */,
