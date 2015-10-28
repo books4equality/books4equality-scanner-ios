@@ -9,7 +9,6 @@
         <!--Sign In-->
         <scene sceneID="AID-Ij-ZNL">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qaF-b1-wzG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="cLZ-3N-7ML" customClass="Code39ISBNViewController" customModule="Scanner_v2" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kld-WO-ADs"/>
@@ -90,26 +89,18 @@
                                                         <rect key="frame" x="20" y="20" width="310" height="30"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
-                                                        <variation key="widthClass=compact" misplaced="YES">
-                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
-                                                        </variation>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BQQ-rk-NpZ">
                                                         <rect key="frame" x="20" y="58" width="310" height="40"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" title="Scan Code39"/>
-                                                        <variation key="widthClass=compact" misplaced="YES">
-                                                            <rect key="frame" x="0.0" y="47" width="320" height="31"/>
-                                                        </variation>
                                                         <connections>
                                                             <action selector="btnCode39:" destination="cLZ-3N-7ML" eventType="touchUpInside" id="ifg-Im-0rW"/>
                                                             <segue destination="lV3-lo-oxd" kind="show" id="c8i-3J-alL"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <variation key="widthClass=compact" axis="vertical" misplaced="YES">
-                                                    <rect key="frame" x="20" y="10" width="320" height="78"/>
-                                                </variation>
+                                                <variation key="widthClass=compact" axis="vertical"/>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -153,26 +144,18 @@
                                                         <rect key="frame" x="20" y="20" width="315" height="30"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
-                                                        <variation key="widthClass=compact" misplaced="YES">
-                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="32"/>
-                                                        </variation>
                                                     </textField>
                                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w8J-bI-InL">
                                                         <rect key="frame" x="20" y="58" width="315" height="45"/>
                                                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <state key="normal" title="Scan ISBN"/>
-                                                        <variation key="widthClass=compact" misplaced="YES">
-                                                            <rect key="frame" x="0.0" y="47" width="320" height="31"/>
-                                                        </variation>
                                                         <connections>
                                                             <action selector="btnISBN:" destination="cLZ-3N-7ML" eventType="touchUpInside" id="3i8-Fa-wxK"/>
                                                             <segue destination="lV3-lo-oxd" kind="show" id="Jgi-4z-EcT"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
-                                                <variation key="widthClass=compact" axis="vertical" misplaced="YES">
-                                                    <rect key="frame" x="20" y="10" width="320" height="78"/>
-                                                </variation>
+                                                <variation key="widthClass=compact" axis="vertical"/>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -304,6 +287,7 @@
                         <outlet property="txtISBN" destination="3iT-rx-we8" id="yQi-LU-hS7"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qaF-b1-wzG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="220.5" y="1202"/>
         </scene>

@@ -24,8 +24,6 @@ func barcodeObtained(viewController: ScannerViewController, data: String)
 }
 
 
-
-
 //For global access to detection Strings
 struct Barcode {
     static var detectionString = ""
