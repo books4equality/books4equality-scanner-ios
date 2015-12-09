@@ -5,7 +5,7 @@
 //  Copyright © 2015 Books_For_Equality. All rights reserved.
 //
 
-// Code for Scanner from https://github.com/bowst/barcode_scanner_demo 
+// Code for Scanner from https://github.com/bowst/barcode_scanner_demo
 
 
 
@@ -16,28 +16,27 @@ import UIKit
 import AVFoundation
 
 //---to be implemented by the view controller calling this view controller---
-protocol ScannerViewControllerDelegate {
+//protocol ScannerSignOutViewControllerDelegate {
     
     //---close the current View controller and return the barcode obtained---
-func barcodeObtained(viewController: ScannerViewController, data: String)
-
-}
+  //  func outBarcodeObtained(viewController: ScannerSignOutViewController, data: String)
+    
+//}
 
 
 //For global access to detection Strings
-struct Barcode {
+struct Out_Barcode {
     static var detectionString = ""
-    static var ISBN = ""
+    static var email = ""
     static var CODE39 = ""
-    static var DDC = ""
 }
 
 //struct for access to code 39 or ISBN
-struct CodeType {
+struct Out_CodeType {
     static var type = ""
 }
 
-class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
+class ScannerSignOutViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate{
     
     
     @IBOutlet weak var btnExitScanner: UIButton!
@@ -59,7 +58,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
     //var previewLayer : AVCaptureVideoPreviewLayer!
     var barcodeCapturedView : UIView!
     var audioPlayer:AVAudioPlayer!
-
+    
     
     //For Reticle
     var firstHighlightView : UIView = UIView()
@@ -70,8 +69,8 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         
         
         self.view.bringSubviewToFront(self.highlightView)
-
-
+        
+        
         // Allow the view to resize freely
         self.highlightView.autoresizingMask = [UIViewAutoresizing.FlexibleTopMargin,
             UIViewAutoresizing.FlexibleBottomMargin,
@@ -86,7 +85,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         self.view.addSubview(self.highlightView)
         
         
-
+        
         // For the sake of discussion this is the camera
         let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
         // Create a nilable NSError to hand off to the next method.
@@ -122,7 +121,7 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         
         
         /**************   Creates a red reticle view **************/
-        //Get Screen dimentions
+         //Get Screen dimentions
         let screenSize: CGRect = UIScreen.mainScreen().bounds
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
@@ -146,16 +145,16 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         var highlightViewRect = CGRectZero
         var barCodeObject : AVMetadataObject!
         
-      /*  let barCodeTypes = [AVMetadataObjectTypeUPCECode,
-            AVMetadataObjectTypeCode39Code,
-            AVMetadataObjectTypeCode39Mod43Code,
-            AVMetadataObjectTypeEAN13Code,
-            AVMetadataObjectTypeEAN8Code,
-            AVMetadataObjectTypeCode93Code,
-            AVMetadataObjectTypeCode128Code,
-            AVMetadataObjectTypePDF417Code,
-            AVMetadataObjectTypeQRCode,
-            AVMetadataObjectTypeAztecCode
+        /*  let barCodeTypes = [AVMetadataObjectTypeUPCECode,
+        AVMetadataObjectTypeCode39Code,
+        AVMetadataObjectTypeCode39Mod43Code,
+        AVMetadataObjectTypeEAN13Code,
+        AVMetadataObjectTypeEAN8Code,
+        AVMetadataObjectTypeCode93Code,
+        AVMetadataObjectTypeCode128Code,
+        AVMetadataObjectTypePDF417Code,
+        AVMetadataObjectTypeQRCode,
+        AVMetadataObjectTypeAztecCode
         ]  */
         
         
@@ -165,18 +164,18 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         let barCodeTypes = [AVMetadataObjectTypeCode39Code,
             AVMetadataObjectTypeCode39Mod43Code,
             AVMetadataObjectTypeEAN13Code]
-
-
+        
+        
         
         //for some reason code 39 is scanning for both types
         /*
         var barCodeTypes = []
         
         if CodeType.type == "ISBN" {
-            barCodeTypes = [AVMetadataObjectTypeEAN13Code]
+        barCodeTypes = [AVMetadataObjectTypeEAN13Code]
         } else if CodeType.type == "CODE39"{
-            barCodeTypes = [AVMetadataObjectTypeCode39Code,
-            AVMetadataObjectTypeCode39Mod43Code]
+        barCodeTypes = [AVMetadataObjectTypeCode39Code,
+        AVMetadataObjectTypeCode39Mod43Code]
         }
         */
         
@@ -191,30 +190,24 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
                     
                     highlightViewRect = barCodeObject.bounds
                     
-                    Barcode.detectionString = (metadata as! AVMetadataMachineReadableCodeObject).stringValue
+                    Out_Barcode.detectionString = (metadata as! AVMetadataMachineReadableCodeObject).stringValue
                     
                     self.session.stopRunning()
                     break
                 }
                 
             }
-            if Barcode.detectionString != "" {
+            if Out_Barcode.detectionString != "" {
                 break;
             }
             else {
-                Barcode.detectionString = "No barcode detected"
+                Out_Barcode.detectionString = "No barcode detected"
             }
             
         }
         
-        
-        //Selects which global to set depending on which button was pressed in Code39ISBN
-        if CodeType.type == "ISBN" {
-            Barcode.ISBN = Barcode.detectionString
-            
-        }else if CodeType.type == "CODE39"{
-            Barcode.CODE39 = Barcode.detectionString
-        }
+        //Set code 39 in GLOBAL struct
+        Out_Barcode.CODE39 = Out_Barcode.detectionString
         
         
         //Highlight capture rectangle
@@ -222,11 +215,11 @@ class ScannerViewController: UIViewController, AVCaptureMetadataOutputObjectsDel
         self.view.bringSubviewToFront(self.highlightView)
         
         
-        delegate?.barcodeObtained(self, data: Barcode.detectionString)
+       // delegate?.outBarcodeObtained(self, data: Out_Barcode.detectionString)
         
         //Not working RN
         self.dismissViewControllerAnimated(true, completion: nil)
         
     }
-
+    
 }
