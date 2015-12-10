@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B5A504EC1C1896A10063245C /* pass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A504EB1C1896A10063245C /* pass.swift */; };
 		EB441C901BB3608E00549834 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB441C8F1BB3608E00549834 /* AppDelegate.swift */; };
 		EB441C921BB3608E00549834 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB441C911BB3608E00549834 /* ViewController.swift */; };
 		EB441C971BB3608E00549834 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB441C961BB3608E00549834 /* Assets.xcassets */; };
@@ -21,7 +22,6 @@
 		EBAC60051BC4905500C1EE8C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EBAC60041BC4905500C1EE8C /* Main.storyboard */; };
 		EBAC66F71BBB075500149AF9 /* ConfirmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBAC66F61BBB075500149AF9 /* ConfirmViewController.swift */; };
 		EBD403351BCD7DF100A0F575 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD403341BCD7DF100A0F575 /* ScannerViewController.swift */; };
-		EBD403371BCD7DFF00A0F575 /* pass.swift in Sources */ = {isa = PBXBuildFile; fileRef = EBD403361BCD7DFF00A0F575 /* pass.swift */; };
 		EBDD72D21BFE4B1400106DEA /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EBDD72C51BFE4AE200106DEA /* Alamofire.framework */; };
 		EBDD72D31BFE4B1400106DEA /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EBDD72C51BFE4AE200106DEA /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
@@ -114,6 +114,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B5A504EB1C1896A10063245C /* pass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pass.swift; sourceTree = "<group>"; };
 		EB441C8C1BB3608E00549834 /* Scanner_v2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Scanner_v2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB441C8F1BB3608E00549834 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB441C911BB3608E00549834 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -134,7 +135,6 @@
 		EBAC60041BC4905500C1EE8C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		EBAC66F61BBB075500149AF9 /* ConfirmViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfirmViewController.swift; sourceTree = "<group>"; };
 		EBD403341BCD7DF100A0F575 /* ScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
-		EBD403361BCD7DFF00A0F575 /* pass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = pass.swift; sourceTree = "<group>"; };
 		EBDD72BA1BFE4AE100106DEA /* Alamofire.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Alamofire.xcodeproj; path = "Alamofire-master/Alamofire.xcodeproj"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -167,7 +167,7 @@
 		EB441C831BB3608E00549834 = {
 			isa = PBXGroup;
 			children = (
-				EBD403361BCD7DFF00A0F575 /* pass.swift */,
+				B5A504EB1C1896A10063245C /* pass.swift */,
 				EBDD72BA1BFE4AE100106DEA /* Alamofire.xcodeproj */,
 				EB441C8E1BB3608E00549834 /* Scanner_v2 */,
 				EB441CA31BB3608E00549834 /* Scanner_v2Tests */,
@@ -435,11 +435,11 @@
 				EBD403351BCD7DF100A0F575 /* ScannerViewController.swift in Sources */,
 				EB6B0B0B1BE1799A0068A697 /* ScannerSignOutViewController.swift in Sources */,
 				EB441C921BB3608E00549834 /* ViewController.swift in Sources */,
-				EBD403371BCD7DFF00A0F575 /* pass.swift in Sources */,
 				EBAC60031BC48B7300C1EE8C /* Code39ISBNViewController.swift in Sources */,
 				EB441C901BB3608E00549834 /* AppDelegate.swift in Sources */,
 				EB6B0B0D1BE17CBC0068A697 /* SignOutViewController.swift in Sources */,
 				EB74E27D1BFC0386009968E5 /* SWXMLHash.swift in Sources */,
+				B5A504EC1C1896A10063245C /* pass.swift in Sources */,
 				EBAC66F71BBB075500149AF9 /* ConfirmViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
