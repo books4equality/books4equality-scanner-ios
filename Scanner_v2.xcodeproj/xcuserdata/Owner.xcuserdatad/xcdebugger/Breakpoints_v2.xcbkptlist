@@ -154,8 +154,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "252"
             endingLineNumber = "252"
-            landmarkName = "Code39ISBNViewController"
-            landmarkType = "3">
+            landmarkName = "uploadBook(_:isbn:ddc:donorEmail:)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -170,7 +170,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "263"
             endingLineNumber = "263"
-            landmarkName = "findDDC(_:)"
+            landmarkName = "uploadBook(_:isbn:ddc:donorEmail:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
