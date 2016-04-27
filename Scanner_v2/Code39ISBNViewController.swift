@@ -8,9 +8,13 @@
 
 import UIKit
 import Alamofire
+import Foundation
+import Locksmith
 
 
 class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
+    
+    let ACCOUNT = Locksmith.loadDataForUserAccount("b4e_login")!
    
     //MARK: Function Overrides
     
@@ -18,7 +22,6 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         createActivityIndicator() //Create the fullscreen activity indicator
-        
 
     }
     
@@ -29,8 +32,6 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
     }
    
     override func viewDidAppear(animated: Bool) {
-        
-        
         //Reload stuff if they exist
         if (Barcode.ISBN != ""){
             //ISBNView.backgroundColor = UIColor.greenColor()
@@ -52,7 +53,6 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
         
         //Initialize Confirm button to "Check"
         btnConfirmOutlet.setTitle("Check Book", forState: UIControlState.Normal)
-        
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) { //keyboard goes away when touching away from textField
@@ -206,12 +206,6 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
             
         }else{ //if hasbeenchecked == true
             
-            //Grab isbn and code39 from text box
-            //parameter_isbn = self.txtISBN.text
-            //parameter_code39 = self.txtCode39.text
-            
-            //uploadBook(parameter_code39, isbn: parameter_isbn, ddc: Barcode.DDC)
-            
             //Use entered DDC
             Barcode.DDC = txtDDC.text!
             
@@ -234,38 +228,73 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
     
     func uploadBook(code39: String, isbn: String, ddc: String, donorEmail: String){ //Upload book to API using ISBN and internal code39
         
+        //let url = "http://www.books4equality.com/admin/books"
+        let url = "http://localhost:3200/admin/books"
+        
         showActivityIndicator() //Begin activity indicator
         
-        let parameters = ["isbn": isbn ,"barcode": code39, "ddc": ddc, "donor_email" : donorEmail]
+        let headers = [
+            "Content-Type": "application/JSON"
+        ]
         
-        //start alamofire instance
-        let manager_post = Alamofire.Manager.sharedInstance
-        manager_post.session.configuration.HTTPAdditionalHeaders = ["X-Requested-With" : "XMLHttpRequest", "Content-Type" : "application/json", "Accept" : "application/json"]
+        let parameters = [
+            "schoolID": ACCOUNT["username"]!,
+            "password": ACCOUNT["password"]!,
+            "isbn": isbn,
+            "barcode": code39,
+            "donor_email": donorEmail
+        ]
         
-        manager_post.request(.POST, "http://www.books4equality.com/api/books", parameters: parameters, encoding: .JSON).authenticate(user: user, password: password).responseJSON
-            { response in switch response.result {
-            case .Success(let JSON):    //If API Returns .JSON Successfully
-                print("Success with JSON: \(JSON)") //Should return book info .JSON
-                let t: AnyObject! = JSON["title"]
-                let title = String(t)
-    
-                /*******CREATE UPLOAD CONFIRM ALERT   **********/
-                let alertController = UIAlertController(title: "Nice.", message:
-                    "\"" + title + "\"" + " was Successfully Uploaded.", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
-                /******* END OF ALERT ************/
+        
+        Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON, headers: headers)
+            .response { request, response, data, error in
+                if(error != nil){
+                    print(error)
+                }
                 
-                self.removeActivityIndicator()  //remove activity indicator
-                
-            case .Failure(let error):  //Handle .JSON not being returned
-                print("Request failed with error: \(error)")
-                //self.lblBookTitle.text = "Error: Upload Failure!"
-                self.outputText.text = "Error: Upload Failure!"
-                //self.catOutput("Error: Upload Failure")
-                self.removeActivityIndicator() //remove activity indicator
-            }
+                if let status = response?.statusCode {
+                    print(status)
+                    //TODO: handle status
+                    switch (status){
+                    case 204:
+                        self.catOutput("Upload Successful!")
+                        /*******CREATE UPLOAD CONFIRM ALERT   **********/
+                        let alertController = UIAlertController(title: "Nice.", message:
+                            "The book was Successfully Uploaded.", preferredStyle: UIAlertControllerStyle.Alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                        /******* END OF ALERT ************/
+                        
+                    case 269:
+                        self.catOutput("ISBN not resolved")
+                        break;
+                    case 500:
+                        self.catOutput("Server Error")
+                        break;
+                    case 401:
+                        self.catOutput("Unauthorized")
+                        break;
+                    case 400:
+                        self.catOutput("Malformed Query")
+                        break;
+                    case 489:
+                        self.catOutput("Barcode already exists in db")
+                        break;
+                    case 489:
+                        self.catOutput("Couldn't find title")
+                        break;
+                    default:
+                        self.catOutput("Unknown failure")
+                        break;
+                    }
+                    
+                    
+                }else{
+                    self.catOutput("No status code recieved")
+                }
+                self.removeActivityIndicator()
         }
+
     }
     
     
@@ -276,37 +305,57 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
         
         showActivityIndicator()
         
-        let manager = Alamofire.Manager.sharedInstance
-        // Add API key header to all requests make with this manager (i.e., the whole session)
-        manager.session.configuration.HTTPAdditionalHeaders = ["X-Requested-With" : "XMLHttpRequest", "Content-Type" : "application/json", "Accept" : "application/json"]
+        //let url = NSURL(fileURLWithPath: "http://www.books4equality.com/admin/getBookByISBN")
+        let url = "http://localhost:3200/admin/getBookByISBN"
         
-        manager.request(.GET, "http://www.books4equality.com/search/\(isbn)").authenticate(user: user, password: password).responseJSON
-            { response in switch response.result {
-            case .Success(let JSON):
-               // print("Success with JSON: \(JSON)")
-                self.removeActivityIndicator()
-                
-                guard let t: AnyObject! = JSON["title"] else {
-                    print("Error Unwrapping JSON")
-                    //_ = "ERROR"
-                }
-                
-                let title = String(t)
-                //self.lblBookTitle.text = "Is this: \"" + title + "\"?" //set book title after retrieving JSON
-                //self.outputText.text = "Is this: \"" + title + "\"?"
-                //out = "Is this: \"" + title + "\"?"
-                self.catOutput("Is this: \"" + title + "\"?")
-                
-            case .Failure(let error):
-                print("ISBN Request failed with error: \(error)")
-                //self.lblBookTitle.text = "Error: Didn't find book for given ISBN"
-                //self.outputText.text = "Error: Didn't find book for given ISBN"
-                //out = "Error: Didn't find book for given ISBN"
-                self.catOutput("Error: Didn't find book for given ISBN")
+        let headers = [
+            "Content-Type": "application/JSON"
+        ]
+        
+        let parameters = [
+            "schoolID": ACCOUNT["username"]!,
+            "password": ACCOUNT["password"]!,
+            "isbn": isbn
+        ]
 
-                self.removeActivityIndicator()
+        Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON, headers: headers)
+            .response { request, response, data, error in
+                if(error != nil){
+                    print(error)
                 }
+      
+                if let status = response?.statusCode {
+                    print(status)
+                    //TODO: handle status
+                    switch (status){
+                    case 200:
+                        let resstr = NSString(data: data!, encoding: NSUTF8StringEncoding)!
+                        self.catOutput("Is this: \"" + (resstr as String) + "\"?")
+                        print(resstr)
+                        break;
+                    case 500:
+                        self.catOutput("Server Error")
+                        break;
+                    case 401:
+                        self.catOutput("Unauthorized")
+                        break;
+                    case 400:
+                        self.catOutput("Malformed Query")
+                        break;
+                    case 489:
+                        self.catOutput("Couldn't find title")
+                    default:
+                        self.catOutput("Unknown failure")
+                        break;
+                    }
+                    
+                    
+                }else{
+                    self.catOutput("No status code recieved")
+                }
+                self.removeActivityIndicator()
         }
+      
     }
     
     
@@ -317,28 +366,28 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
         
         showActivityIndicator()
         
-        let urlString = "http://classify.oclc.org/classify2/Classify?isbn=\(isbn)&summary=true"
+        let cleanisbn = isbn.stringByReplacingOccurrencesOfString("-", withString: "")
+
         
-        let manager = Alamofire.Manager.sharedInstance
-        manager.request(.GET, urlString).responseData{
-            response in switch response.result{
-            case .Success(let data):
-                let ddc = self.findDDC(data)
-                Barcode.DDC = ddc
-                if (ddc == ""){
-                    self.catOutput("No DDC, enter manually")
-                }else{
-                    self.catOutput("DDC is: \(ddc)")
-                    self.txtDDC.text = ddc
+        let urlString = "http://classify.oclc.org/classify2/Classify?isbn=\(cleanisbn)&summary=true"
+        
+        Alamofire.request(.GET, urlString)
+            .response{ request, response, data, error in
+                if(error != nil){
+                    print(error)
+                    self.catOutput("Failure to find DDC")
+                } else {
+                    let ddc = self.findDDC(data!)
+                    Barcode.DDC = ddc
+                    if (ddc == ""){
+                        self.catOutput("No DDC, enter manually")
+                    }else{
+                        self.catOutput("DDC is: \(ddc)")
+                        self.txtDDC.text = ddc
+                    }
+      
                 }
                 self.removeActivityIndicator()
-            case .Failure(let error):
-                print("BBC Request failed with error: \(error)")
-                //self.lblBBC.text = "Failure to find DDC"
-                //self.outputText.text = "Failure to find DDC"
-                self.catOutput("Failure to find DDC")
-                self.removeActivityIndicator()
-            }
         }
         
     }
@@ -361,9 +410,7 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
     
     
     func findDDC(data: NSData) -> String {
-        
         let xml = SWXMLHash.parse(data)
-        
         guard xml else{
             print("XML Hash Error")
             return ("")
@@ -438,9 +485,5 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
         self.myActivityIndicator.removeFromSuperview()
         self.myActivityIndicatorBackground.removeFromSuperview()
     }
-
-    
-    //9781932735659
-    //9999999999
 
 }//End View Controller

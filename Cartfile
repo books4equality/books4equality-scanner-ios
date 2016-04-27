@@ -1,0 +1,5 @@
+#Locksmith handles keychain stuff
+github "matthewpalmer/Locksmith"
+
+#Alamofire
+github "Alamofire/Alamofire" ~> 3.3

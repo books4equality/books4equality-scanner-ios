@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="Scanner_v2" customModuleProvider="target">
+            <connections>
+                <outlet property="PasswordOutlet" destination="Tgd-4x-oVX" id="ZLE-2O-Szt"/>
+                <outlet property="UsernameOutlet" destination="wLb-AW-JSC" id="UtW-Ff-Dla"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tgd-4x-oVX">
+                    <rect key="frame" x="8" y="214" width="584" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <variation key="widthClass=compact" misplaced="YES">
+                        <rect key="frame" x="8" y="215" width="384" height="30"/>
+                    </variation>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="School Username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wLb-AW-JSC">
+                    <rect key="frame" x="8" y="141" width="584" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <variation key="widthClass=compact" misplaced="YES">
+                        <rect key="frame" x="8" y="141" width="384" height="30"/>
+                    </variation>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please Log In" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TJ0-Rc-kvx">
+                    <rect key="frame" x="8" y="69" width="584" height="40"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                    <variation key="widthClass=compact" misplaced="YES">
+                        <rect key="frame" x="8" y="64" width="384" height="40"/>
+                    </variation>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FDJ-Tu-uNa">
+                    <rect key="frame" x="8" y="450" width="584" height="59"/>
+                    <color key="backgroundColor" red="0.337544819" green="1" blue="0.33495964859999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="Login">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <variation key="widthClass=compact" misplaced="YES">
+                        <rect key="frame" x="8" y="453" width="384" height="59"/>
+                    </variation>
+                    <connections>
+                        <action selector="LoginAction:" destination="-1" eventType="touchUpInside" id="EbQ-xR-h4j"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="Tgd-4x-oVX" secondAttribute="trailing" constant="8" id="3h5-mD-Pmf"/>
+                <constraint firstItem="Tgd-4x-oVX" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="4jl-VM-uWN"/>
+                <constraint firstItem="FDJ-Tu-uNa" firstAttribute="top" secondItem="Tgd-4x-oVX" secondAttribute="bottom" constant="208" id="9Xc-vz-XrG"/>
+                <constraint firstItem="Tgd-4x-oVX" firstAttribute="top" secondItem="wLb-AW-JSC" secondAttribute="bottom" constant="44" id="WlG-2D-ULs"/>
+                <constraint firstItem="TJ0-Rc-kvx" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="chZ-vN-69m"/>
+                <constraint firstItem="TJ0-Rc-kvx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="gtH-7l-ukg"/>
+                <constraint firstItem="wLb-AW-JSC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="h96-lb-B2F"/>
+                <constraint firstAttribute="bottom" secondItem="FDJ-Tu-uNa" secondAttribute="bottom" constant="88" id="hfV-Bw-LQ1"/>
+                <constraint firstAttribute="trailing" secondItem="TJ0-Rc-kvx" secondAttribute="trailing" constant="8" id="jXq-VO-g4N"/>
+                <constraint firstItem="FDJ-Tu-uNa" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="uNy-BS-gud"/>
+                <constraint firstAttribute="trailing" secondItem="wLb-AW-JSC" secondAttribute="trailing" constant="8" id="wY8-1J-C28"/>
+                <constraint firstAttribute="trailing" secondItem="FDJ-Tu-uNa" secondAttribute="trailing" constant="8" id="wzI-JG-Duo"/>
+            </constraints>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="chZ-vN-69m"/>
+                    <exclude reference="gtH-7l-ukg"/>
+                    <exclude reference="jXq-VO-g4N"/>
+                    <exclude reference="h96-lb-B2F"/>
+                    <exclude reference="wY8-1J-C28"/>
+                    <exclude reference="3h5-mD-Pmf"/>
+                    <exclude reference="4jl-VM-uWN"/>
+                    <exclude reference="WlG-2D-ULs"/>
+                    <exclude reference="9Xc-vz-XrG"/>
+                    <exclude reference="hfV-Bw-LQ1"/>
+                    <exclude reference="uNy-BS-gud"/>
+                    <exclude reference="wzI-JG-Duo"/>
+                </mask>
+            </variation>
+            <variation key="widthClass=compact">
+                <mask key="constraints">
+                    <include reference="chZ-vN-69m"/>
+                    <include reference="gtH-7l-ukg"/>
+                    <include reference="jXq-VO-g4N"/>
+                    <include reference="h96-lb-B2F"/>
+                    <include reference="wY8-1J-C28"/>
+                    <include reference="3h5-mD-Pmf"/>
+                    <include reference="4jl-VM-uWN"/>
+                    <include reference="WlG-2D-ULs"/>
+                    <include reference="9Xc-vz-XrG"/>
+                    <include reference="hfV-Bw-LQ1"/>
+                    <include reference="uNy-BS-gud"/>
+                    <include reference="wzI-JG-Duo"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+</document>

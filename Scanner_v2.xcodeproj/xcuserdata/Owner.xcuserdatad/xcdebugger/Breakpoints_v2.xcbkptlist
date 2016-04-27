@@ -117,11 +117,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Scanner_v2/SignOutViewController.swift"
-            timestampString = "467770173.295928"
+            timestampString = "483403656.903323"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
+            startingLineNumber = "203"
+            endingLineNumber = "203"
             landmarkName = "getByCode39(_:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -149,12 +149,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Scanner_v2/Code39ISBNViewController.swift"
-            timestampString = "469558649.655415"
+            timestampString = "483419616.918037"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "252"
-            endingLineNumber = "252"
-            landmarkName = "uploadBook(_:isbn:ddc:donorEmail:)"
+            startingLineNumber = "350"
+            endingLineNumber = "350"
+            landmarkName = "getByISBN(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -165,12 +165,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Scanner_v2/Code39ISBNViewController.swift"
-            timestampString = "469558649.655415"
+            timestampString = "483419616.918037"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "263"
-            endingLineNumber = "263"
-            landmarkName = "uploadBook(_:isbn:ddc:donorEmail:)"
+            startingLineNumber = "351"
+            endingLineNumber = "351"
+            landmarkName = "getByISBN(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
