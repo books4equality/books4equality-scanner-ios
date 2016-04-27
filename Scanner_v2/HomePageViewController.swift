@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Locksmith
 
 class HomePageViewController: UIViewController {
 
@@ -24,9 +25,11 @@ class HomePageViewController: UIViewController {
     }
     
     @IBAction func LogoutAction(sender: AnyObject) {
-        let keychain = Keychain()
-        keychain["b4e_username"] = nil
-        keychain["b4e_password"] = nil
+        do{
+            try Locksmith.deleteDataForUserAccount("b4e_login")
+        } catch {
+            print("Failure deleting Locksmith user account")
+        }
         //Pull up the login view controller
         let loginViewController = LoginViewController()
         self.presentViewController(loginViewController, animated: true, completion: nil)
