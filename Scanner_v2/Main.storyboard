@@ -444,6 +444,9 @@
                                 <variation key="widthClass=compact" misplaced="YES">
                                     <rect key="frame" x="20" y="427" width="360" height="65"/>
                                 </variation>
+                                <connections>
+                                    <action selector="SignoutAction:" destination="pCF-5v-7Al" eventType="touchUpInside" id="f2r-cO-SNo"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6hC-bm-H7k">
                                 <rect key="frame" x="20" y="325" width="560" height="65"/>

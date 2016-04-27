@@ -34,7 +34,17 @@ class HomePageViewController: UIViewController {
         let loginViewController = LoginViewController()
         self.presentViewController(loginViewController, animated: true, completion: nil)
     }
+    
+    
 
+    @IBAction func SignoutAction(sender: AnyObject) {
+        /*******CREATE UPLOAD CONFIRM ALERT   **********/
+        let alertController = UIAlertController(title: "Oi!", message:
+            "This here buddon dinae work yeet", preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+        self.presentViewController(alertController, animated: true, completion: nil)
+        /******* END OF ALERT ************/
+    }
     
 
 

@@ -207,7 +207,19 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
         }else{ //if hasbeenchecked == true
             
             //Use entered DDC
-            Barcode.DDC = txtDDC.text!
+            
+            if let d = txtDDC.text {
+                Barcode.DDC = d
+            } else {
+                print("No DDC")
+            }
+            if let d = txtDonorEmail.text {
+                Barcode.DONOR_EMAIL = d
+            } else {
+                print("No Donor email")
+            }
+            //Barcode.DDC = txtDDC.text!
+            //Barcode.DONOR_EMAIL = txtDonorEmail.text!
             
             print(Barcode.DONOR_EMAIL)
             print(Barcode.DDC)
@@ -240,6 +252,7 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
         let parameters = [
             "schoolID": ACCOUNT["username"]!,
             "password": ACCOUNT["password"]!,
+            "ddc":ddc,
             "isbn": isbn,
             "barcode": code39,
             "donor_email": donorEmail
@@ -257,7 +270,7 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
                     //TODO: handle status
                     switch (status){
                     case 204:
-                        self.catOutput("Upload Successful!")
+                        //self.catOutput("Upload Successful!")
                         /*******CREATE UPLOAD CONFIRM ALERT   **********/
                         let alertController = UIAlertController(title: "Nice.", message:
                             "The book was Successfully Uploaded.", preferredStyle: UIAlertControllerStyle.Alert)
@@ -305,7 +318,7 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
         
         showActivityIndicator()
         
-        let url = NSURL(fileURLWithPath: "http://www.books4equality.com/admin/getBookByISBN")
+        let url = "http://www.books4equality.com/admin/getBookByISBN"
         //let url = "http://localhost:3200/admin/getBookByISBN"
         
         let headers = [
@@ -330,7 +343,7 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
                     switch (status){
                     case 200:
                         let resstr = NSString(data: data!, encoding: NSUTF8StringEncoding)!
-                        self.catOutput("Is this: \"" + (resstr as String) + "\"?")
+                        self.catOutput("Is this: " + (resstr as String) + "? \nPlease enter missing information and confirm.")
                         print(resstr)
                         break;
                     case 500:
