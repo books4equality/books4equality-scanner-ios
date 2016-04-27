@@ -46,7 +46,7 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="ISBN" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3iT-rx-we8">
                                                 <rect key="frame" x="20" y="131" width="235" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                 <connections>
                                                     <action selector="touchInsideISBN:" destination="cLZ-3N-7ML" eventType="editingDidBegin" id="Qdm-vy-G8D"/>
                                                 </connections>
@@ -90,7 +90,7 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Code 39" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LNt-Xc-wxw">
                                                 <rect key="frame" x="20" y="20" width="235" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                 <variation key="widthClass=compact" ambiguous="YES">
                                                     <rect key="frame" x="37" y="0.0" width="323" height="30"/>
                                                 </variation>
@@ -139,7 +139,7 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="DDC" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hnV-se-nGM">
                                                 <rect key="frame" x="-25" y="-30" width="97" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                                 <connections>
                                                     <action selector="touchInsideDDC:" destination="cLZ-3N-7ML" eventType="editingDidBegin" id="b7a-hm-lF4"/>
                                                 </connections>
@@ -171,7 +171,7 @@
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Donor Email (Optional)" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="BaU-8d-tDK">
                                                 <rect key="frame" x="20" y="286" width="235" height="30"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                                 <connections>
                                                     <action selector="touchInsideEmail:" destination="cLZ-3N-7ML" eventType="editingDidBegin" id="1Hr-rq-hNK"/>
                                                     <action selector="touchOutsideEmail:" destination="cLZ-3N-7ML" eventType="editingDidEnd" id="w9M-Y9-ku5"/>
@@ -464,9 +464,6 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YJE-Fz-M1Y">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <state key="normal" title="Logout"/>
-                                <variation key="widthClass=compact" misplaced="YES">
-                                    <rect key="frame" x="0.0" y="72" width="114" height="30"/>
-                                </variation>
                                 <connections>
                                     <action selector="LogoutAction:" destination="pCF-5v-7Al" eventType="touchUpInside" id="RaM-c9-Zqr"/>
                                 </connections>

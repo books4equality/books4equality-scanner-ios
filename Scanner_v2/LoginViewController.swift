@@ -21,6 +21,7 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         createActivityIndicator()
+        self.PasswordOutlet.secureTextEntry = true
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -59,11 +60,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var UsernameOutlet: UITextField!
     
     @IBOutlet weak var PasswordOutlet: UITextField!
-
-    
-    
-    
-    
     
     //let usernameKey = "UVM"
     //let passwordKey = "password"
