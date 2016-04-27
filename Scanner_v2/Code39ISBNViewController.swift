@@ -8,9 +8,13 @@
 
 import UIKit
 import Alamofire
+import Foundation
+import Locksmith
 
 
 class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
+    
+    let ACCOUNT = Locksmith.loadDataForUserAccount("b4e_login")!
    
     //MARK: Function Overrides
     
@@ -18,27 +22,37 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         createActivityIndicator() //Create the fullscreen activity indicator
+
     }
+    
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
    
     override func viewDidAppear(animated: Bool) {
-        
-         //Loads the Global ISBN and Code39 into labels
+        //Reload stuff if they exist
         if (Barcode.ISBN != ""){
-            ISBNView.backgroundColor = UIColor.greenColor()
+            //ISBNView.backgroundColor = UIColor.greenColor()
+            isbnCheckImg.image = UIImage(named: "files/icons/check")
             txtISBN.text = Barcode.ISBN
         }
         if(Barcode.CODE39 != ""){
-            Code39View.backgroundColor = UIColor.greenColor()
+            //Code39View.backgroundColor = UIColor.greenColor()
+            code39CheckImg.image = UIImage(named: "files/icons/check")
             txtCode39.text = Barcode.CODE39
+        }
+        if(Barcode.DDC != ""){
+            ddcCheckImg.image = UIImage(named: "files/icons/check")
+            txtDDC.text = Barcode.DDC
+        }
+        if(Barcode.DONOR_EMAIL != ""){
+            txtDonorEmail.text = Barcode.DONOR_EMAIL
         }
         
         //Initialize Confirm button to "Check"
         btnConfirmOutlet.setTitle("Check Book", forState: UIControlState.Normal)
-        
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) { //keyboard goes away when touching away from textField
@@ -54,8 +68,8 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Class Vars.
     
-    var parameter_isbn:String!
-    var parameter_code39:String!
+    //var parameter_isbn:String!
+    //var parameter_code39:String!
     
     //Auth struct contained in pass.swift
     let user = Auth.user
@@ -69,18 +83,64 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
     var hasBeenChecked = false
     var code39 = ""
     var ISBN = ""
+    var ddc = ""
+    var donorEmail = ""
     
     
     //MARK: Outlets
     
+    @IBOutlet weak var txtDonorEmail: UITextField!
+    @IBOutlet weak var txtDDC: UITextField!
     @IBOutlet weak var txtISBN: UITextField!
     @IBOutlet weak var txtCode39: UITextField!
-    @IBOutlet weak var ISBNView: UIView!
-    @IBOutlet weak var Code39View: UIView!
-    @IBOutlet weak var lblBookTitle: UILabel!
+    
+    
+    
+    //@IBOutlet weak var ISBNView: UIView!
+    //@IBOutlet weak var Code39View: UIView!
+   
     @IBOutlet weak var btnConfirmOutlet: UIButton!
     
-    @IBOutlet weak var lblBBC: UILabel!
+    //@IBOutlet weak var lblBBC: UILabel!
+    //@IBOutlet weak var lblBookTitle: UILabel!
+    @IBOutlet weak var isbnCheckImg: UIImageView!
+    @IBOutlet weak var code39CheckImg: UIImageView!
+    @IBOutlet weak var ddcCheckImg: UIImageView!
+    
+    @IBOutlet weak var emailCheckImg: UIImageView!
+    
+    @IBOutlet weak var outputText: UITextView!
+    
+    
+    
+    //MARK: Text field actions
+    @IBAction func touchInsideISBN(sender: AnyObject) {
+        self.txtISBN.keyboardType = UIKeyboardType.NumberPad
+    }
+    
+    @IBAction func touchInsideCode39(sender: AnyObject) {
+        self.txtCode39.keyboardType = UIKeyboardType.NumberPad
+    }
+    
+    
+    @IBAction func touchInsideDDC(sender: AnyObject) {
+        self.txtDDC.keyboardType = UIKeyboardType.NumberPad
+    }
+    
+    
+    @IBAction func touchInsideEmail(sender: AnyObject) {
+        self.txtDonorEmail.keyboardType = UIKeyboardType.EmailAddress
+        
+        //shift view so that field can be seen
+        self.view.frame.origin.y -= 150
+    }
+    
+    @IBAction func touchOutsideEmail(sender: AnyObject) {
+        self.view.frame.origin.y += 150
+        Barcode.DONOR_EMAIL = txtDonorEmail.text!
+    }
+    
+    
     
     //MARK: Button Presses
     
@@ -109,40 +169,51 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
             //Grab fields from text boxes
             code39 = txtCode39.text!
             ISBN = txtISBN.text!
+            ddc = txtDDC.text!
+            donorEmail = txtDonorEmail.text!
             
             Barcode.CODE39 = code39
             Barcode.ISBN = ISBN
+            Barcode.DONOR_EMAIL = donorEmail
+            Barcode.DDC = ddc
             
             //Logic for if fields have been filled out
             if (Barcode.CODE39 != "" && Barcode.ISBN != "") { //Good, Fields are not empty
-                Code39View.backgroundColor = UIColor.greenColor()
-                ISBNView.backgroundColor = UIColor.greenColor()
+                isbnCheckImg.image = UIImage(named: "files/icons/check")
+                code39CheckImg.image = UIImage(named: "files/icons/check")
                 btnConfirmOutlet.setTitle("Confirm", forState: UIControlState.Normal)
                 hasBeenChecked = true
-                self.parameter_isbn = self.txtISBN.text  //Grab isbn from text box
-                getByISBN(parameter_isbn)
-                getDDC(parameter_isbn)
+                //self.parameter_isbn = self.txtISBN.text  //Grab isbn from text box
+                
+                //getByISBN(parameter_isbn)
+                //getDDC(parameter_isbn)
+                getByISBN(Barcode.ISBN)
+                getDDC(Barcode.ISBN)
+                
             }else if(Barcode.CODE39 != "" && Barcode.ISBN == ""){
-                Code39View.backgroundColor = UIColor.greenColor()
-                ISBNView.backgroundColor = UIColor.lightGrayColor()
+                code39CheckImg.image = UIImage(named: "files/icons/check")
+                isbnCheckImg.image = UIImage(named: "files/icons/x-mark")
                 hasBeenChecked = false
             }else if(Barcode.CODE39 == "" && Barcode.ISBN != ""){
-                Code39View.backgroundColor = UIColor.lightGrayColor()
-                ISBNView.backgroundColor = UIColor.greenColor()
+                code39CheckImg.image = UIImage(named: "files/icons/x-mark")
+                isbnCheckImg.image = UIImage(named: "files/icons/check")
                 hasBeenChecked = false
             }else{ //no fields are filled in
-                Code39View.backgroundColor = UIColor.lightGrayColor()
-                ISBNView.backgroundColor = UIColor.lightGrayColor()
+                code39CheckImg.image = UIImage(named: "files/icons/x-mark")
+                isbnCheckImg.image = UIImage(named: "files/icons/x-mark")
                 hasBeenChecked = false
             }
             
         }else{ //if hasbeenchecked == true
             
-            //Grab isbn and code39 from text box
-            parameter_isbn = self.txtISBN.text
-            parameter_code39 = self.txtCode39.text
+            //Use entered DDC
+            Barcode.DDC = txtDDC.text!
             
-            uploadBook(parameter_code39, isbn: parameter_isbn, ddc: Barcode.DDC)
+            print(Barcode.DONOR_EMAIL)
+            print(Barcode.DDC)
+            
+            uploadBook(Barcode.CODE39, isbn: Barcode.ISBN, ddc: Barcode.DDC, donorEmail: Barcode.DONOR_EMAIL)
+            
             clearFields()
             
         }//End hasBeenChecked If
@@ -155,38 +226,75 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Alamofire HTTP requests
     
-    func uploadBook(code39: String, isbn: String, ddc: String){ //Upload book to API using ISBN and internal code39
+    func uploadBook(code39: String, isbn: String, ddc: String, donorEmail: String){ //Upload book to API using ISBN and internal code39
+        
+        //let url = "http://www.books4equality.com/admin/books"
+        let url = "http://localhost:3200/admin/books"
         
         showActivityIndicator() //Begin activity indicator
         
-        let parameters = ["isbn": isbn ,"barcode": code39, "ddc": ddc]
+        let headers = [
+            "Content-Type": "application/JSON"
+        ]
         
-        //start alamofire instance
-        let manager_post = Alamofire.Manager.sharedInstance
-        manager_post.session.configuration.HTTPAdditionalHeaders = ["X-Requested-With" : "XMLHttpRequest", "Content-Type" : "application/json", "Accept" : "application/json"]
+        let parameters = [
+            "schoolID": ACCOUNT["username"]!,
+            "password": ACCOUNT["password"]!,
+            "isbn": isbn,
+            "barcode": code39,
+            "donor_email": donorEmail
+        ]
         
-        manager_post.request(.POST, "http://www.books4equality.com/api/books", parameters: parameters, encoding: .JSON).authenticate(user: user, password: password).responseJSON
-            { response in switch response.result {
-            case .Success(let JSON):    //If API Returns .JSON Successfully
-                print("Success with JSON: \(JSON)") //Should return book info .JSON
-                let t: AnyObject! = JSON["title"]
-                let title = String(t)
-    
-                /*******CREATE UPLOAD CONFIRM ALERT   **********/
-                let alertController = UIAlertController(title: "Nice.", message:
-                    "\"" + title + "\"" + " was Successfully Uploaded.", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
-                /******* END OF ALERT ************/
+        
+        Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON, headers: headers)
+            .response { request, response, data, error in
+                if(error != nil){
+                    print(error)
+                }
                 
-                self.removeActivityIndicator()  //remove activity indicator
-                
-            case .Failure(let error):  //Handle .JSON not being returned
-                print("Request failed with error: \(error)")
-                self.lblBookTitle.text = "Error: Upload Failure!"
-                self.removeActivityIndicator() //remove activity indicator
-            }
+                if let status = response?.statusCode {
+                    print(status)
+                    //TODO: handle status
+                    switch (status){
+                    case 204:
+                        self.catOutput("Upload Successful!")
+                        /*******CREATE UPLOAD CONFIRM ALERT   **********/
+                        let alertController = UIAlertController(title: "Nice.", message:
+                            "The book was Successfully Uploaded.", preferredStyle: UIAlertControllerStyle.Alert)
+                        alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default,handler: nil))
+                        self.presentViewController(alertController, animated: true, completion: nil)
+                        /******* END OF ALERT ************/
+                        
+                    case 269:
+                        self.catOutput("ISBN not resolved")
+                        break;
+                    case 500:
+                        self.catOutput("Server Error")
+                        break;
+                    case 401:
+                        self.catOutput("Unauthorized")
+                        break;
+                    case 400:
+                        self.catOutput("Malformed Query")
+                        break;
+                    case 489:
+                        self.catOutput("Barcode already exists in db")
+                        break;
+                    case 489:
+                        self.catOutput("Couldn't find title")
+                        break;
+                    default:
+                        self.catOutput("Unknown failure")
+                        break;
+                    }
+                    
+                    
+                }else{
+                    self.catOutput("No status code recieved")
+                }
+                self.removeActivityIndicator()
         }
+
     }
     
     
@@ -194,58 +302,94 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
     
 
     func getByISBN(isbn: String){//Get the book title from API by ISBN
-
+        
         showActivityIndicator()
         
-        let manager = Alamofire.Manager.sharedInstance
-        // Add API key header to all requests make with this manager (i.e., the whole session)
-        manager.session.configuration.HTTPAdditionalHeaders = ["X-Requested-With" : "XMLHttpRequest", "Content-Type" : "application/json", "Accept" : "application/json"]
+        //let url = NSURL(fileURLWithPath: "http://www.books4equality.com/admin/getBookByISBN")
+        let url = "http://localhost:3200/admin/getBookByISBN"
         
-        manager.request(.GET, "http://www.books4equality.com/search/\(self.parameter_isbn)").authenticate(user: user, password: password).responseJSON
-            { response in switch response.result {
-            case .Success(let JSON):
-               // print("Success with JSON: \(JSON)")
-                self.removeActivityIndicator()
-                
-                guard let t: AnyObject! = JSON["title"] else {
-                    print("Error Unwrapping JSON")
-                    let t = "ERROR"
-                }
-                
-                let title = String(t)
-                self.lblBookTitle.text = "Is this: \"" + title + "\"?" //set book title after retrieving JSON
-                
-            case .Failure(let error):
-                print("ISBN Request failed with error: \(error)")
-                self.lblBookTitle.text = "Error: Didn't find book for given ISBN"
+        let headers = [
+            "Content-Type": "application/JSON"
+        ]
+        
+        let parameters = [
+            "schoolID": ACCOUNT["username"]!,
+            "password": ACCOUNT["password"]!,
+            "isbn": isbn
+        ]
 
-                self.removeActivityIndicator()
+        Alamofire.request(.POST, url, parameters: parameters, encoding: .JSON, headers: headers)
+            .response { request, response, data, error in
+                if(error != nil){
+                    print(error)
                 }
+      
+                if let status = response?.statusCode {
+                    print(status)
+                    //TODO: handle status
+                    switch (status){
+                    case 200:
+                        let resstr = NSString(data: data!, encoding: NSUTF8StringEncoding)!
+                        self.catOutput("Is this: \"" + (resstr as String) + "\"?")
+                        print(resstr)
+                        break;
+                    case 500:
+                        self.catOutput("Server Error")
+                        break;
+                    case 401:
+                        self.catOutput("Unauthorized")
+                        break;
+                    case 400:
+                        self.catOutput("Malformed Query")
+                        break;
+                    case 489:
+                        self.catOutput("Couldn't find title")
+                    default:
+                        self.catOutput("Unknown failure")
+                        break;
+                    }
+                    
+                    
+                }else{
+                    self.catOutput("No status code recieved")
+                }
+                self.removeActivityIndicator()
         }
+      
     }
     
     
     
     func getDDC(isbn: String){//Get the Dewey Decimal Code from Classified API by ISBN
         
+        //var out = ""
+        
         showActivityIndicator()
         
-        let urlString = "http://classify.oclc.org/classify2/Classify?isbn=\(isbn)&summary=true"
+        let cleanisbn = isbn.stringByReplacingOccurrencesOfString("-", withString: "")
+
         
-        let manager = Alamofire.Manager.sharedInstance
-        manager.request(.GET, urlString).responseData{
-            response in switch response.result{
-            case .Success(let data):
-                let ddc = self.findDDC(data)
-                Barcode.DDC = ddc
-                self.lblBBC.text = "DDC is: \(ddc)"
+        let urlString = "http://classify.oclc.org/classify2/Classify?isbn=\(cleanisbn)&summary=true"
+        
+        Alamofire.request(.GET, urlString)
+            .response{ request, response, data, error in
+                if(error != nil){
+                    print(error)
+                    self.catOutput("Failure to find DDC")
+                } else {
+                    let ddc = self.findDDC(data!)
+                    Barcode.DDC = ddc
+                    if (ddc == ""){
+                        self.catOutput("No DDC, enter manually")
+                    }else{
+                        self.catOutput("DDC is: \(ddc)")
+                        self.txtDDC.text = ddc
+                    }
+      
+                }
                 self.removeActivityIndicator()
-            case .Failure(let error):
-                print("BBC Request failed with error: \(error)")
-                self.lblBBC.text = "Failure to find DDC"
-                self.removeActivityIndicator()
-            }
         }
+        
     }
 
     
@@ -253,23 +397,34 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
     
     
     //MARK: MISC.
+    
+    //Required for outputting messsages in the outputText
+    func catOutput(str:String){
+        let currentStr = outputText.text
+        if (currentStr == ""){
+            outputText.text = str
+        }else{
+            outputText.text = currentStr + "\n" + str
+        }
+    }
+    
+    
     func findDDC(data: NSData) -> String {
-        
         let xml = SWXMLHash.parse(data)
-        
         guard xml else{
             print("XML Hash Error")
-            return ("XML Hash Error")
+            return ("")
         }
         print(xml)
         
         guard let ddc: String! = xml["classify"]["recommendations"]["ddc"]["mostPopular"].element?.attributes["nsfa"] else {
-            print("Failure finding DDC String")
-            return("Failure finding DDC String")
+            print("DDC Parse Error")
+            return ("")
         }
         print(ddc)
         return ddc
     }
+    
     
     func delay(delay:Double, closure:()->()) {
         dispatch_after(
@@ -285,13 +440,22 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
         Barcode.CODE39 = ""
         Barcode.ISBN = ""
         Barcode.DDC = ""
+        Barcode.DONOR_EMAIL = ""
         txtCode39.text = ""
         txtISBN.text = ""
-        ISBNView.backgroundColor = UIColor.lightGrayColor()
-        Code39View.backgroundColor = UIColor.lightGrayColor()
+        txtDonorEmail.text = ""
+        txtDDC.text = ""
+        //ISBNView.backgroundColor = UIColor.lightGrayColor()
+        //Code39View.backgroundColor = UIColor.lightGrayColor()
+        /*** replace with check mark  **/
+        code39CheckImg.image = nil
+        isbnCheckImg.image = nil
+        ddcCheckImg.image = nil
+        emailCheckImg.image = nil
         self.btnConfirmOutlet.setTitle("Check Book", forState: UIControlState.Normal)
-        lblBookTitle.text = ""
-        lblBBC.text = ""
+        //lblBookTitle.text = ""
+        //lblBBC.text = ""
+        outputText.text = ""
         hasBeenChecked = false
     }
     
@@ -321,6 +485,5 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
         self.myActivityIndicator.removeFromSuperview()
         self.myActivityIndicatorBackground.removeFromSuperview()
     }
-
 
 }//End View Controller

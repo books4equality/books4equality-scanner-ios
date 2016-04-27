@@ -30,6 +30,7 @@ struct Barcode {
     static var ISBN = ""
     static var CODE39 = ""
     static var DDC = ""
+    static var DONOR_EMAIL = ""
 }
 
 //struct for access to code 39 or ISBN

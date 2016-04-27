@@ -150,7 +150,7 @@ class SignOutViewController: UIViewController, UITextFieldDelegate {
     //TODO: change this to sign out instead of
     
     func signOutBook(code39: String, isbn: String){ //Upload book to API using ISBN and internal code39
-        
+        /*
         showActivityIndicator() //Begin activity indicator
         
         let parameters = ["isbn": isbn ,"barcode": code39]
@@ -181,6 +181,7 @@ class SignOutViewController: UIViewController, UITextFieldDelegate {
                 
                 }
         }
+ */
     }
     
     
@@ -191,6 +192,8 @@ class SignOutViewController: UIViewController, UITextFieldDelegate {
     
     func getByCode39(Code39: String){//Get the book title from API by ISBN
         
+        
+        /*
         showActivityIndicator()
         
         let manager = Alamofire.Manager.sharedInstance
@@ -219,6 +222,7 @@ class SignOutViewController: UIViewController, UITextFieldDelegate {
                 self.removeActivityIndicator()
                 }
         }
+ */
     }
     
     
