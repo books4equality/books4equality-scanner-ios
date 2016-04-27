@@ -228,8 +228,8 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
     
     func uploadBook(code39: String, isbn: String, ddc: String, donorEmail: String){ //Upload book to API using ISBN and internal code39
         
-        //let url = "http://www.books4equality.com/admin/books"
-        let url = "http://localhost:3200/admin/books"
+        let url = "http://www.books4equality.com/admin/books"
+        //let url = "http://localhost:3200/admin/books"
         
         showActivityIndicator() //Begin activity indicator
         
@@ -305,8 +305,8 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
         
         showActivityIndicator()
         
-        //let url = NSURL(fileURLWithPath: "http://www.books4equality.com/admin/getBookByISBN")
-        let url = "http://localhost:3200/admin/getBookByISBN"
+        let url = NSURL(fileURLWithPath: "http://www.books4equality.com/admin/getBookByISBN")
+        //let url = "http://localhost:3200/admin/getBookByISBN"
         
         let headers = [
             "Content-Type": "application/JSON"
