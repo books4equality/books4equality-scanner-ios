@@ -1,5 +1,8 @@
 #Locksmith handles keychain stuff
 github "matthewpalmer/Locksmith"
 
+#SWXMLHash
+github "drmohundro/SWXMLHash" ~> 2.3
+
 #Alamofire
-github "Alamofire/Alamofire" ~> 3.3
+#github "Alamofire/Alamofire" ~> 3.3

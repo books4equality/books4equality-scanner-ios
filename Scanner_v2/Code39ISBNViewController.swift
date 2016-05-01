@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import Foundation
 import Locksmith
+import SWXMLHash
 
 
 class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
@@ -32,6 +33,12 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
     }
    
     override func viewDidAppear(animated: Bool) {
+        
+        
+        //Move the frame back to origin after book upload
+        self.view.frame.origin.y = 0
+
+        
         //Reload stuff if they exist
         if (Barcode.ISBN != ""){
             //ISBNView.backgroundColor = UIColor.greenColor()
@@ -67,15 +74,7 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
     
     
     //MARK: Class Vars.
-    
-    //var parameter_isbn:String!
-    //var parameter_code39:String!
-    
-    //Auth struct contained in pass.swift
-    let user = Auth.user
-    let password = Auth.pass
-    
-    
+
     var myActivityIndicator:UIActivityIndicatorView!
     var myActivityIndicatorBackground:UIView!
     
@@ -115,21 +114,21 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
     
     //MARK: Text field actions
     @IBAction func touchInsideISBN(sender: AnyObject) {
-        self.txtISBN.keyboardType = UIKeyboardType.NumberPad
+        //self.txtISBN.keyboardType = UIKeyboardType.NumberPad
     }
     
     @IBAction func touchInsideCode39(sender: AnyObject) {
-        self.txtCode39.keyboardType = UIKeyboardType.NumberPad
+        //self.txtCode39.keyboardType = UIKeyboardType.NumberPad
     }
     
     
     @IBAction func touchInsideDDC(sender: AnyObject) {
-        self.txtDDC.keyboardType = UIKeyboardType.NumberPad
+        //self.txtDDC.keyboardType = UIKeyboardType.NumberPad
     }
     
     
     @IBAction func touchInsideEmail(sender: AnyObject) {
-        self.txtDonorEmail.keyboardType = UIKeyboardType.EmailAddress
+        //self.txtDonorEmail.keyboardType = UIKeyboardType.EmailAddress
         
         //shift view so that field can be seen
         self.view.frame.origin.y -= 150
@@ -296,6 +295,9 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
                     case 489:
                         self.catOutput("Couldn't find title")
                         break;
+                    case 409:
+                        self.catOutput("Barcode already exists in DB")
+                        break;
                     default:
                         self.catOutput("Unknown failure")
                         break;
@@ -390,17 +392,26 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
                     print(error)
                     self.catOutput("Failure to find DDC")
                 } else {
-                    let ddc = self.findDDC(data!)
-                    Barcode.DDC = ddc
-                    if (ddc == ""){
-                        self.catOutput("No DDC, enter manually")
-                    }else{
-                        self.catOutput("DDC is: \(ddc)")
-                        self.txtDDC.text = ddc
+                
+                    //let d : NSData
+                    if let d = String(data: data!, encoding: NSUTF8StringEncoding){
+                        
+                        let ddc = self.findDDC(d)
+                        Barcode.DDC = ddc
+                        if (ddc == ""){
+                            self.catOutput("No DDC, enter manually")
+                        }else{
+                            self.catOutput("DDC is: \(ddc)")
+                            self.txtDDC.text = ddc
+                        }
+                    
+                    } else {
+                        print("XML Parse Error")
                     }
+
       
-                }
-                self.removeActivityIndicator()
+            }
+            self.removeActivityIndicator()
         }
         
     }
@@ -422,20 +433,17 @@ class Code39ISBNViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    func findDDC(data: NSData) -> String {
+    func findDDC(data: String) -> String {
+        
         let xml = SWXMLHash.parse(data)
-        guard xml else{
-            print("XML Hash Error")
-            return ("")
-        }
         print(xml)
         
-        guard let ddc: String! = xml["classify"]["recommendations"]["ddc"]["mostPopular"].element?.attributes["nsfa"] else {
+        guard let ddc = xml["classify"]["recommendations"]["ddc"]["mostPopular"].element?.attributes["nsfa"] else {
             print("DDC Parse Error")
             return ("")
-        }
+        } 
         print(ddc)
-        return ddc
+        return String(ddc)
     }
     
     

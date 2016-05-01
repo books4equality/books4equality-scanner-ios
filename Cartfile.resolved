@@ -1,2 +1,2 @@
-github "Alamofire/Alamofire" "3.3.1"
 github "matthewpalmer/Locksmith" "2.0.8"
+github "drmohundro/SWXMLHash" "2.3.1"
