@@ -3,5 +3,3 @@ pass.swift
 /Carthage/
 Carthage/
 .DS_Store
-build
-*.xcodeproj/*
