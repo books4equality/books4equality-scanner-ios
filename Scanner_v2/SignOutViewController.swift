@@ -58,8 +58,8 @@ class SignOutViewController: UIViewController, UITextFieldDelegate {
     var parameter_email:String!
     
     //Auth struct contained in pass.swift
-    let user = Auth.user
-    let password = Auth.pass
+    //let user = Auth.user
+    //let password = Auth.pass
     
     
     var myActivityIndicator:UIActivityIndicatorView!

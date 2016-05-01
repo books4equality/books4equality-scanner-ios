@@ -2,4 +2,6 @@ pass.swift
 'Alamofire-SwiftyJSON'
 /Carthage/
 Carthage/
-
+.DS_Store
+build
+*.xcodeproj/*
